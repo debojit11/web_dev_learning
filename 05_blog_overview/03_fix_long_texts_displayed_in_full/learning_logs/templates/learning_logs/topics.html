@@ -6,11 +6,19 @@
 
     <ul>
     {% for topic in topics %}
-        <li>{{ topic }}</li>
+        <li>{{ topic.text }}</li>  
 
         <ul>
             {% for entry in topic.entry_set.all %}
-                <li><a href="{% url 'learning_logs:entry' entry.id %}">{{ entry.text }}</a></li>
+                <li>
+                    <a href="{% url 'learning_logs:entry' entry.id %}">
+                        {% if entry.text|length > 50 %}
+                            {{ entry.text|slice:":50" }}...
+                        {% else %}
+                            {{ entry.text }}
+                        {% endif %}
+                    </a>
+                </li>
             {% empty %}
                 <li>No logs for this topic.</li>
             {% endfor %}
