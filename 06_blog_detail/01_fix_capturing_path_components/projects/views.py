@@ -7,6 +7,6 @@ def index(request):
     return render(request, 'projects/index.html', {'projects': projects})
 
 
-def detail(request):
-    project = Project.objects.get(pk=100)
+def detail(request, pk):
+    project = Project.objects.get(pk=pk)
     return render(request, 'projects/detail.html', {'project': project})
