@@ -12,14 +12,14 @@
             <strong><a href="/{{ user.username }}/following">Following </a></strong>{{ user.djeeterprofile.follows.count }} - <strong><a href="/{{ user.username }}/followers">Followers </a></strong>{{ user.djeeterprofile.followed_by.count }}
         </p>
 
-        {% ifnotequal request.user user %}
+        {% if not user == request.user %}
             <hr>
             {% if request.user.djeeterprofile in user.djeeterprofile.followed_by.all %}
                 <a href="/{{ user.username }}/stopfollow" class="btn btn-danger">Stop following</a>
             {% else %}
                 <a href="/{{ user.username }}/follow" class="btn btn-success">Follow</a>
             {% endif %}
-        {% endifnotequal %}
+        {% endif %}
 
         <hr>
 
@@ -62,8 +62,10 @@
         {% endif %}
 
         <!-- TODO: fix the form submission code here -->
-        <form action="/{{ request.user.username }}/" method="">
+        <form action="/{{ request.user.username }}/" method="post">
+            {% csrf_token %}
             <input type="hidden" value="{{ request.path }}" name="redirect">
+            <textarea name="body" class="form-control" rows="3" placeholder="What's on your mind?"></textarea>
             <input type="submit" value="Post djeet" class="btn btn-primary">
         </form>
         <!-- End of form submission code (and nearly end of the file!! ;P -->

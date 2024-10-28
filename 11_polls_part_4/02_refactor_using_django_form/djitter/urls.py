@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from profile.views import frontpage
+from profile.views import frontpage, signout
 
 
 urlpatterns = [

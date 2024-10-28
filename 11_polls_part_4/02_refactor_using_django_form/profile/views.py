@@ -8,7 +8,7 @@ from feed.forms import PostForm
 
 def frontpage(request):
     if request.user.is_authenticated:
-        return redirect('/' + request.user.username + '/')
+        return redirect('/profile/' + request.user.username + '/')
     else:
         if request.method == 'POST':
             if 'signupform' in request.POST:
@@ -21,7 +21,7 @@ def frontpage(request):
                     signupform.save()
                     user = authenticate(username=username, password=password)
                     login(request, user)
-                    return redirect('/')
+                    return redirect('/profile/' + username + '/')
 
             else:
                 signinform = SigninForm(data=request.POST)
@@ -29,7 +29,7 @@ def frontpage(request):
 
                 if signinform.is_valid():
                     login(request, signinform.get_user())
-                    return redirect('/')
+                    return redirect('/profile/' + request.user.username + '/')
 
         else:
             signupform = SignupForm()

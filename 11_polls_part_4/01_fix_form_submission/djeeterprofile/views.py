@@ -52,9 +52,10 @@ def profile(request, username):
 
         # TODO: this is one area where you need to fix form submission
         if request.method == 'POST':
-
-            djeet.user = request.user
-            djeet.save()
+            body=request.POST.get('body','').strip()
+            if body:
+                djeet=Djeet(user=request.user, body=body)
+                djeet.save()
 
             redirecturl = request.POST.get('redirect', '/')
 

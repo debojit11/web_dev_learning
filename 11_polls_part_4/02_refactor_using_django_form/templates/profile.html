@@ -9,17 +9,17 @@
         <hr>
 
         <p>
-            <strong><a href="/{{ user.username }}/following">Following </a></strong>{{ user.djeeterprofile.follows.count }} - <strong><a href="/{{ user.username }}/followers">Followers </a></strong>{{ user.djeeterprofile.followed_by.count }}
+            <strong><a href="{% url 'profile:following' username=user.username %}">Following </a></strong>{{ user.djeeterprofile.follows.count }} - <strong><a href="{% url 'profile:followers' username=user.username %}">Followers </a></strong>{{ user.djeeterprofile.followed_by.count }}
         </p>
 
-        {% ifnotequal request.user user %}
+        {% if not user == request.user %}
             <hr>
             {% if request.user.djeeterprofile in user.djeeterprofile.followed_by.all %}
                 <a href="/{{ user.username }}/stopfollow" class="btn btn-danger">Stop following</a>
             {% else %}
                 <a href="/{{ user.username }}/follow" class="btn btn-success">Follow</a>
             {% endif %}
-        {% endifnotequal %}
+        {% endif %}
 
         <hr>
 
