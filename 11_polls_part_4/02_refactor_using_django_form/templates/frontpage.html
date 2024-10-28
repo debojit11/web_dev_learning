@@ -29,15 +29,10 @@
       {% endfor %}
     {% endif %}
 
+    <!-- Display the SigninForm -->
     <form action="." method="post">
       {% csrf_token %}
-
-      {% for field in signinform %}
-        <div class="form-group">
-          {{ field }}
-        </div>
-      {% endfor %}
-
+      {{ signinform.as_p }}  <!-- Renders all fields as defined in SigninForm -->
       <input type="submit" value="Sign in" name="signinform" class="btn btn-primary">
     </form>
   </div>
@@ -66,17 +61,13 @@
       {% endfor %}
     {% endif %}
 
+    <!-- Display the SignupForm -->
     <form action="." method="post">
       {% csrf_token %}
-
-      {% for field in signupform %}
-        <div class="form-group">
-          {{ field }}
-        </div>
-      {% endfor %}
-
+      {{ signupform.as_p }}  <!-- Renders all fields as defined in SignupForm -->
       <input type="submit" value="Sign up" name="signupform" class="btn btn-primary">
     </form>
   </div>
 </div>
+
 {% endblock %}
