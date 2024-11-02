@@ -1,3 +1,4 @@
 06_blog_detail/03_fix_path_converting/db.sqlite3
 venv
 mysite/db.sqlite3
+locallibrary/db.sqlite3
