@@ -20,4 +20,7 @@
     <li><strong>Books with "{{ search_word }}":</strong> {{ num_books_with_word }}</li>
     <li><strong>Genres with "{{ search_word }}":</strong> {{ num_genres_with_word }}</li>
   </ul>
+  <p>
+    You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.
+  </p>
 {% endblock %}
