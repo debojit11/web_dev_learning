@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from .models import Book, Author, BookInstance, Genre
 from django.views import generic
+from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
 # Create your views here.
 
 def index(request):
@@ -79,3 +82,19 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
             .filter(status__exact='o')
             .order_by('due_back')
         )
+    
+
+class LoanedBooksListView(PermissionRequiredMixin, generic.ListView):
+    """Generic class-based view listing all books on loan."""
+    model = BookInstance
+    template_name = 'catalog/bookinstance_list_borrowed_librarian.html'
+    paginate_by = 10
+    permission_required = 'catalog.can_mark_returned'  # The permission defined in the BookInstance model
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(status='o').order_by('due_back')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['today'] = timezone.now().date()
+        return context

@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Borrowed Books</h1>
+  <ul>
+    {% for book_instance in object_list %}
+      <li class="{% if book_instance.due_back < today %}overdue{% endif %}">
+        {{ book_instance.book.title }} (Due: {{ book_instance.due_back|date:"M d, Y" }}) - Borrower: {{ book_instance.borrower.get_username }}
+      </li>
+    {% empty %}
+      <li>No books currently borrowed.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
