@@ -1,6 +1,6 @@
 import datetime
 from django.shortcuts import render, get_object_or_404
-from .models import Book, Author, BookInstance, Genre
+from .models import Book, Author, BookInstance, Genre, Language
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
@@ -168,13 +168,13 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
         
 class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
-    fields = ['title', 'author', 'summary', 'isbn', 'genre']
+    fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
     permission_required = 'catalog.add_book'
 
 
 class BookUpdate(PermissionRequiredMixin, UpdateView):
     model = Book
-    fields = ['title', 'author', 'summary', 'isbn', 'genre']
+    fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
     permission_required = 'catalog.change_book'
 
 
